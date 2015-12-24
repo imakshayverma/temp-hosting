@@ -1,4 +1,11 @@
 
+body, html {
+          height: 100%;
+          overflow-x: hidden;
+          font-family: 'PT Sans', sans-serif;
+        }
+
+
 #wrapper {
     padding-left: 0;
     -webkit-transition: all 0.5s ease;
@@ -118,10 +125,6 @@
 }
 
 
-body, html {
-          height: 100%;
-          overflow-x: hidden;
-        }
         #sidebar-wrapper{
             background-color: #FCFFF5;
             color:#black;
@@ -247,9 +250,13 @@ background: linear-gradient(to left, #1e3c72 , #2a5298); /* W3C, IE 10+/ Edge, F
           margin-top: 0px;
           padding: 10px;
           margin-bottom: 10px;
+          vertical-align: middle;
         }
-        div>h3{
-          margin: 0px;
+        div>h4{
+          margin: 3px auto;
+          vertical-align: middle;
+          font-size: 1.4em;
+
 
         }
 
@@ -275,4 +282,15 @@ background: #011C26; /* fallback for old browsers */
 
         .panel>.figures-heading{
           background-color: #FFF056;
+         }
+
+
+         #menu-toggle{
+            background-color: #77C4D3;
+            
+            margin-top:7px; 
+            margin-left:-15px;
+            float:left;
+            position:fixed;
+            z-index: 1000;
          }
