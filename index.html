@@ -33,6 +33,38 @@
 
     <style>
 
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
+.year-selection{
+  width:100px;
+}
+
+#left-div {
+    float: left;
+    width: 100px;
+    height: 20px;
+    margin-right: 8px;
+    
+}
+#right-div {
+    margin-left: 450px;
+    
+}
     </style>
 </head>
 
@@ -82,13 +114,16 @@
                         
 
                         <div class="row budget-select">  
-                            <div class="form-group" style="float:left;">
+                            <p id="menu" class="menuchoice">
                               <select class="form-control" id="sel1">
-                                <option>Budget Estimates</option>
-                                <option>Budget Revision</option>
-                                <option>Budget Predication</option>
+                              <option value="Actual Budget">Actual Budget</option>
+                               <option value="Revised Budget">Revised Budget</option>
+                              <option value="Budget">Budget</option>
+                               
                               </select>
+                            </p>
                             </div>
+                            
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
@@ -98,67 +133,53 @@
                                     </div>
                                     <div class="panel-body">
                                         <div class="col-sm-9 chart-column">
+                                            <div class"row selection-row">
+                                              <div class="col-md-12 selection-column">
+                                              </div>
+                                            </div>
                                             <div class="chart-area"></div>
                                         </div>
-                                        <div class="col-sm-3 chart-figures">
+                                        <div class="col-sm-3 ">
                                             <div class="panel panel-default">
                                             <div class="panel-heading figures-heading">
                                                 <h2 class="panel-title"><i class="fa fa-briefcase"></i> Budget Figures</h2>
                                             </div>
-                                            <div class="panel-body">
-                                                <div class="chart"></div> 
-                                            </div>
+                                            <div class="panel-body chart-figures">
+                                                <table class="table figures-table">
+                                                  <thead>
+                                                    <tr>
+                                                      <th id="figure-heading">Scheme Name
+                                                      </th>
+                                                    </tr>
+                                                  </thead>
+                                                  <tbody>
+                                                    <tr>
+                                                      <td id="figure-year1">
+                                                        Year : Figures</td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td id="figure-year2">
+                                                        Year  : Figures</td>
+                                                    </tr>
+                                                  </tbody>
+                                                </table>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        
+                        <div id="trendline" ></div>
 
                         <div class="row">
-                            <div class="col-lg-7">
+                            <div class="col-lg-4">
                                 <div class="container-fluid department-table">
                                   <div class="panel panel-default">
                                     <div class="panel-heading ">
                                         <h2 class="panel-title"><i class="fa fa-book"></i> Budget Estimates</h2>
                                     </div>
-                                    <div class="panel-body">
+                                    <div class="panel-body table-div">
 
-                                            <table class="table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>
-                                                            #
-                                                        </th>
-                                                        <th>
-                                                            Department Name
-                                                        </th>
-                                                        <th>
-                                                            Year
-                                                        </th>
-                                                        <th>
-                                                            Trend
-                                                        </th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            1
-                                                        </td>
-                                                        <td>
-                                                            Railway
-                                                        </td>
-                                                        <td>
-                                                            1945
-                                                        </td>
-                                                        <td>
-                                                            
-                                                        </td>
-                                                    </tr>
-                                                    
-                                                </tbody>
-                                            </table>
+                                            
                                           </div>
                                         </div>
                                         
@@ -193,132 +214,631 @@
     </script>   
 
     <script src="http://d3js.org/d3.v3.min.js"></script>
+
 <script>
 
-var margin = {top: 30, right: 0, bottom: 10, left: 0},
-    width = 650 - margin.left - margin.right,
-    height = 500 - margin.top - margin.bottom;
 
-var x = d3.scale.ordinal().rangePoints([0, width], 1),
-    y = {},
-    dragging = {};
+ var margin = { top: 10, right: 100, bottom: 40, left: 40 };
+  var height = 400 - margin.top - margin.bottom;
+  var width = 660 - margin.left - margin.right;
 
-var line = d3.svg.line(),
-    axis = d3.svg.axis().orient("left"),
-    background,
-    foreground;
 
-var svg = d3.select("body").select("div.chart-area").append("svg")
+
+
+var x = d3.scale.ordinal()
+    .domain([0,1])
+    // Setting the rangePoints instead of rangeBands
+    .rangePoints([0, width], 0);
+var y = d3.scale.linear()
+    .range([height, 0]);
+
+var y1 = d3.scale.linear()
+    .range([height, 0]);
+
+var color = d3.scale.category10();
+
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .tickFormat("")
+    .orient("bottom");
+
+var yAxis = d3.svg.axis()
+    .scale(y)
+
+    .orient("left");
+
+var y2Axis = d3.svg.axis()
+    .scale(y1)
+    .tickFormat("")
+    .orient("left");
+
+var line = d3.svg.line()
+    .interpolate("linear")
+    .x(function(d) { return x(d.ide); })
+    .y(function(d) { return y(d.budget); });
+
+
+
+
+//Redraw Begin
+var menu = d3.select("#menu select")
+    .on("change", change);  
+
+
+d3.csv("budget_revision.csv", function(error, data) {
+                      var parseDate = d3.time.format("%Y").parse;
+                      if (error) throw error;
+                      
+                       data.forEach(function(d) {
+                        d.date = parseDate(d.date);
+                        
+                      }); 
+                      formatted = data;
+            
+                      redraw();
+
+                      
+  
+});
+ 
+d3.select(window)
+    .on("keydown", function() { altKey = d3.event.altKey; })
+    .on("keyup", function() { altKey = false; });
+var altKey;
+
+
+function change() {
+  d3.transition()
+      .duration(altKey ? 7500 : 1500)
+      .each(redraw);
+}
+
+
+
+
+
+function redraw() { 
+
+  d3.select("svg").remove();
+  d3.select("div.selection-column").select("div").remove();
+  d3.select("div.selection-column").select("div").remove();
+  d3.select("div.table-div").select("table").remove();
+
+
+ 
+
+  var svg = d3.select("body").select("div.chart-area").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-d3.csv("cars.csv", function(error, cars) {
 
-  // Extract the list of dimensions and create a scale for each.
-  x.domain(dimensions = d3.keys(cars[0]).filter(function(d) {
-    return d != "name" && (y[d] = d3.scale.linear()
-        .domain(d3.extent(cars, function(p) { return +p[d]; }))
-        .range([height, 0]));
-  }));
+  var nested = d3.nest()
+    .key(function(d) { return d.Type; })
+    .map(formatted)
+  
+  
+    // get value from menu selection
+    // the option values are set in HTML and correspond
+    //to the [type] value we used to nest the data  
+    var series = menu.property("value");
+    
+    // only retrieve data from the selected series, using the nest we just created
+    var data = nested[series];
 
-  // Add grey background lines for context.
-  background = svg.append("g")
-      .attr("class", "background")
-    .selectAll("path")
-      .data(cars)
-    .enter().append("path")
-      .attr("d", path);
+  
 
-  // Add blue foreground lines for focus.
-  foreground = svg.append("g")
-      .attr("class", "foreground")
-    .selectAll("path")
-      .data(cars)
-    .enter().append("path")
-      .attr("d", path);
+  var years=[];
+for(var j=0;j<data.length;j++){
+  var obj=data[j];
+  years.push(obj.date.getFullYear());
+}
 
-  // Add a group element for each dimension.
-  var g = svg.selectAll(".dimension")
-      .data(dimensions)
-    .enter().append("g")
-      .attr("class", "dimension")
-      .attr("transform", function(d) { return "translate(" + x(d) + ")"; })
-      .call(d3.behavior.drag()
-        .origin(function(d) { return {x: x(d)}; })
-        .on("dragstart", function(d) {
-          dragging[d] = x(d);
-          background.attr("visibility", "hidden");
-        })
-        .on("drag", function(d) {
-          dragging[d] = Math.min(width, Math.max(0, d3.event.x));
-          foreground.attr("d", path);
-          dimensions.sort(function(a, b) { return position(a) - position(b); });
-          x.domain(dimensions);
-          g.attr("transform", function(d) { return "translate(" + position(d) + ")"; })
-        })
-        .on("dragend", function(d) {
-          delete dragging[d];
-          transition(d3.select(this)).attr("transform", "translate(" + x(d) + ")");
-          transition(foreground).attr("d", path);
-          background
-              .attr("d", path)
-            .transition()
-              .delay(500)
-              .duration(0)
-              .attr("visibility", null);
-        }));
+var year1=years[0];
+var year2=years[years.length-1];
+  var select = d3.select("body").select("div.selection-column")
+    .append("div")
+    .attr("class","year-selection ")
+    .attr("id","left-div")
+    .append("select")
+    .attr("class","form-control")
+    .attr("id","left-select")
+      .on("change", function() { var other_div=d3.select("#right-select").property("value");
+        updateData(this.value,other_div,formatted) });
+  
 
-  // Add an axis and title.
-  g.append("g")
-      .attr("class", "axis")
-      .each(function(d) { d3.select(this).call(axis.scale(y[d])); })
-    .append("text")
-      .style("text-anchor", "middle")
-      .attr("y", -9)
-      .text(function(d) { return d; });
+  select
+  .selectAll("option")
+      .data(data)
+    .enter().append("option")
+    .attr("class","left-selection")
+      .attr("value", function(d) { return d.date.getFullYear(); })
+      .text(function(d) { return d.date.getFullYear(); })
+      .style("margin","0px 0px 0px 0px");
+      
 
-  // Add and store a brush for each axis.
-  g.append("g")
-      .attr("class", "brush")
-      .each(function(d) {
-        d3.select(this).call(y[d].brush = d3.svg.brush().y(y[d]).on("brushstart", brushstart).on("brush", brush));
+  var select2 = d3.select("body").select("div.selection-column")
+    .append("div")
+    .attr("class","year-selection")
+    .attr("id","right-div")
+    .append("select")
+    .attr("class","form-control")
+    .attr("id","right-select")
+      .on("change", function() {var other_div=d3.select("#left-select").property("value"); 
+        updateData(this.value,other_div,nested[series]) });
+
+
+  select2.selectAll("option")
+      .data(data)
+    .enter().append("option")
+      .attr("class","right-selection")
+      .attr("value", function(d) { return d.date.getFullYear(); })
+      
+      .text(function(d) { return d.date.getFullYear(); })
+
+var checkOption = function (e) {
+
+        if(e == data[data.length-1]){
+       
+            return d3.select(this).attr("selected", "selected");
+        }
+    };
+    
+    select2.selectAll("option").each(checkOption);
+      
+
+   
+    
+    dataset=[];
+    for(var i = 0; i < data.length; i++) {
+    var obj = data[i];
+    if(obj.date.getFullYear()==year1){
+      obj.ide=parseInt("0");
+      dataset.push(obj);
+    }
+      
+}
+  for(var j = 0 ; j<data.length;j++){
+    var obj1=data[j];
+    if( obj1.date.getFullYear()==year2){
+      obj1.ide=parseInt("1");
+      dataset.push(obj1);
+    }
+  }
+
+  if(dataset[0].date==dataset[1].date){
+var temp = jQuery.extend(true, {}, dataset[0]);
+temp.ide=0;
+dataset[0]=temp;
+}
+
+  color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "date" && key!== "Type"; }));
+
+
+
+  var schemes = color.domain().map(function(name) {
+    
+    return {
+      name: name,
+      values: dataset.map(function(d) { 
+        return { budget: +d[name],ide:d.ide};
+     
       })
-    .selectAll("rect")
-      .attr("x", -8)
-      .attr("width", 16);
-});
-
-function position(d) {
-  var v = dragging[d];
-  return v == null ? x(d) : v;
-}
-
-function transition(g) {
-  return g.transition().duration(500);
-}
-
-// Returns the path for a given data point.
-function path(d) {
-  return line(dimensions.map(function(p) { return [position(p), y[p](d[p])]; }));
-}
-
-function brushstart() {
-  d3.event.sourceEvent.stopPropagation();
-}
-
-// Handles a brush event, toggling the display of foreground lines.
-function brush() {
-  var actives = dimensions.filter(function(p) { return !y[p].brush.empty(); }),
-      extents = actives.map(function(p) { return y[p].brush.extent(); });
-  foreground.style("display", function(d) {
-    return actives.every(function(p, i) {
-      return extents[i][0] <= d[p] && d[p] <= extents[i][1];
-    }) ? null : "none";
+    };
   });
+ 
+
+
+  schemes.pop();
+ x.domain(d3.extent(dataset, function(d) { return d.ide; }));
+  y.domain([
+    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
+    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
+  ]);
+y1.domain([
+    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
+    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
+  ]);
+  
+  
+svg.append("g")
+      .attr("class", "x axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(xAxis);
+
+
+  svg.append("g")
+      .attr("class", "y axis")
+      .call(yAxis)
+      .append("text")
+          .attr("transform","rotate(-90)")
+          .attr("y",-50)
+          .attr("dy",".51em")
+          .style("text-anchor","end")
+          .text("Price ($)");
+    
+      
+
+      svg.append("g")       
+        .attr("class", "y axis")  
+        .attr("transform", "translate(" + width + " ,0)") 
+        .call(y2Axis)
+
+      
+
+  var scheme = svg.selectAll(".scheme")
+      .data(schemes)
+    .enter().append("g")
+      .attr("class", "scheme");
+
+  scheme.append("path")
+      .attr("class", "line")
+      .attr("id",function(d,i){ return "id" + i; })
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+
+
+  scheme
+  .append("text")
+    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })    
+      .attr("transform", function(d) { return "translate(" + (x(d.value.ide) +10)+ "," + y(d.value.budget) + ")"; })
+      .attr("id",function(d,i){ return "text_id" + i; })
+      .attr("x", 3)
+      .attr("dy", ".35em")
+      
+      .text(function(d) { return d.name; })
+      .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
+        window.open(url); })
+      .on("mouseover",function(d,i) { 
+        var scheme_name=d3.select("#text_id"+i).html();
+        var year1_val, year2_val,year1_num,year2_num; 
+        for (var k=0;k<schemes.length;k++){
+
+          if(schemes[k].name==scheme_name){
+            year1_val=schemes[k].values[0].budget;
+            year2_val=schemes[k].values[1].budget;
+            //year1_num=schemes[i].values[0].date.getFullYear();
+            //year2_num=schemes[i].values[1].date.getFullYear();
+          }
+        }
+  
+        d3.select("#figure-heading").html(scheme_name).on("click", function(d) { var url="trend_analysis.html?scheme="+scheme_name;
+        window.open(url); });
+        d3.select("#figure-year1").html(year1 + " : " +year1_val+" (Cr)");
+        d3.select("#figure-year2").html(year2 + " : " +year2_val+" (Cr)");
+          for (j=0; j < 6; j++) {
+            if (i !== j) {
+              d3.select("#id"+j).style("opacity",0.1);
+              d3.select("#text_id"+j).style("opacity",0.2);
+              d3.select("#text_id"+i).style("font-size","13px");
+              d3.select("#row_id"+j).style("opacity",0.2);
+              d3.select("#row_id"+i).style("background-color","#FFF056").style("font-weight","bold");
+            }
+          };
+        })
+        .on("mouseout", function(d,i) {
+          for (j=0; j < 6; j++) {
+            d3.select("#id"+j).style("opacity",1);
+            d3.select("#text_id"+j).style("opacity",1);
+            d3.select("#text_id"+i).style("font-size","10px");
+            d3.select("#row_id"+j).style("opacity",1).style("background-color","white").style("font-weight","normal");
+          };
+        });
+//Trendline
+var scheme2 = color.domain().map(function(name) {
+    
+    return {
+      name: name,
+      values: data.map(function(d) { 
+        return { budget: +d[name],date:d.date};
+     
+      })
+    };
+  });
+var tr_width = 100;
+var tr_height = 25;
+var tr_x = d3.time.scale().range([0, tr_width - 2]);
+var tr_y = d3.scale.linear().range([tr_height - 4, 0]);
+var tr_line = d3.svg.line()
+             .interpolate("basis")
+            .x(function(d) { return x(d.date); })
+            .y(function(d) { return y(d.budget); });
+          
+              
+
+
+
+  //Populate Table with data
+
+   // The table generation function
+columns=["name"];
+    
+
+
+var scheme2 = color.domain().map(function(name) {
+    
+    return {
+      name: name,
+      values: data.map(function(d) { 
+        return { budget: +d[name],date:d.date};
+     
+      })
+    };
+  });
+ scheme2.pop()   
+
+
+
+
+
+var table = d3.select("body").select("div.table-div")
+    .attr("style", "padding: 20px")
+    .append("table")
+    .attr("class","table")
+        thead = table.append("thead"),
+        tbody = table.append("tbody");
+
+var thead = table.append("thead").append("tr");
+
+thead.selectAll("th")
+    .data(columns)
+    .enter()
+    .append("th")
+    .text(function(d) {
+        return d.toUpperCase();
+    });
+
+var tbody = table.append("tbody");
+
+var trows = tbody
+    .selectAll("tr")
+    .data(scheme2)
+    .enter()
+    .append("tr")
+    .attr("id",function(d,i){ return "row_id" + i; });
+
+     // create a cell in each row for each column
+   var cells = trows.selectAll("td")
+        .data(function(row) {
+            return columns.map(function(column) {
+              
+                return {column: column, value: row[column]};
+            });
+        })
+        .enter()
+        .append("td")
+        .attr("style", "font-family: Courier") // sets the font style
+            .html(function(d) {return (d.value); });
+    
+thead.append("th").text('Graphs');
+
+trows.selectAll("td.graph")  
+//use a class so you don't re-select the existing <td> elements
+          .data(function(row) {
+            return [row];
+        })
+          .enter()
+            .append("td")
+            .attr("class", "graph")
+            .each(lines)
+            .style("height","40px")
+            .style("width","100px"); 
+
+
+
+    function lines(scheme_data) {  
+    var width = 100, height = 20; 
+   
+    var sc_data = []
+    for (i = 0; i < scheme_data.values.length; i++) {
+        
+        sc_data[i] = {
+            'x': scheme_data.values[i].date,
+            'y': scheme_data.values[i].budget
+        }
+    }
+    
+    var x = d3.time.scale()
+        .range([0, width ])
+        .domain(d3.extent(sc_data, function(d) {return d.x; }));
+
+    var y = d3.scale.linear()
+        .range([height, 0])
+        .domain([
+    d3.min(sc_data, function(d) {return d.y; }),
+    d3.max(sc_data, function(d) {return d.y; })
+  ]);
+  
+    
+    var line = d3.svg.line()
+                .interpolate("basis")
+                .x(function(d) {return x(d.x)})
+                .y(function(d) {return y(d.y)});
+  
+    d3.select(this).append('svg')
+            .attr('width', width)
+            .attr('height', height)
+         .append('path')
+            .attr('class','line')
+            .datum(sc_data)
+            .attr('d', line);
+
+}
+  
+
+// render the table
+
+
+
+
+    
+
+
+
+      function updateData(year,other_year) {
+        
+        d3.csv("budget_revision.csv", function(error, data) {
+                      if (error) throw error;
+                      var parseDate = d3.time.format("%Y").parse;
+                       data.forEach(function(d) {
+                        d.date = parseDate(d.date);
+                        
+                      }); 
+                      updated_data=data;
+                      
+
+        var nested = d3.nest()
+    .key(function(d) { return d.Type; })
+    .map(updated_data)
+  
+  
+    // get value from menu selection
+    // the option values are set in HTML and correspond
+    //to the [type] value we used to nest the data  
+    var series = menu.property("value");
+    
+    // only retrieve data from the selected series, using the nest we just created
+  
+   var data_up=nested[series];
+
+        d3.selectAll(".scheme").remove();
+   
+
+
+
+dataset=[];
+    for(var i = 0; i < data_up.length; i++) {
+    var obj = data_up[i];
+    if(obj.date.getFullYear()==year){
+      obj.ide=parseInt("0");
+
+      dataset.push(obj);
+    }
+      
+}
+  for(var j = 0 ; j<data_up.length;j++){
+    var obj1=data_up[j];
+    if( obj1.date.getFullYear()==other_year){
+
+      obj1.ide=parseInt("1");
+      dataset.push(obj1);
+    }
+  }
+
+if(dataset[0].date==dataset[1].date){
+var temp = jQuery.extend(true, {}, dataset[0]);
+temp.ide=0;
+dataset[0]=temp;
+}
+  
+color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "date" && key!== "Type"; }));
+
+
+
+  var schemes = color.domain().map(function(name) {
+    
+    return {
+      name: name,
+      values: dataset.map(function(d) { 
+        return { budget: +d[name],ide:d.ide};
+     
+      })
+    };
+  });
+
+
+schemes.pop();
+x.domain(d3.extent(dataset, function(d) { return d.ide; }));
+
+  y.domain([
+    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
+    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
+  ]);
+y1.domain([
+    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
+    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
+  ]);
+    
+
+
+    // Select the section we want to apply our changes to
+    
+    d3.select("body").transition();
+      var scheme = svg.selectAll(".scheme")
+      .data(schemes)
+    .enter().append("g")
+      .attr("class", "scheme");
+
+  scheme.append("path")
+      .attr("class", "line")
+      .attr("id",function(d,i){ return "id" + i; })
+      .attr("d", function(d) { return line(d.values); })
+      .style("stroke", function(d) { return color(d.name); });
+
+ scheme
+  .append("text")
+    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })    
+      .attr("transform", function(d) { return "translate(" + (x(d.value.ide) +10)+ "," + y(d.value.budget) + ")"; })
+      .attr("id",function(d,i){ return "text_id" + i; })
+      .attr("x", 3)
+      .attr("dy", ".35em")
+      
+      .text(function(d) { return d.name; })
+      .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
+        window.open(url); })
+      .on("mouseover",function(d,i) { 
+        var scheme_name=d3.select("#text_id"+i).html();
+        var year1_val, year2_val,year1_num,year2_num; 
+        for (var k=0;k<schemes.length;k++){
+
+          if(schemes[k].name==scheme_name){
+            year1_val=schemes[k].values[0].budget;
+            year2_val=schemes[k].values[1].budget;
+            //year1_num=schemes[i].values[0].date.getFullYear();
+            //year2_num=schemes[i].values[1].date.getFullYear();
+          }
+        }
+  
+        d3.select("#figure-heading").html(scheme_name).on("click", function(d) { var url="trend_analysis.html?scheme="+scheme_name;
+        window.open(url); });
+        d3.select("#figure-year1").html(year1 + " : " +year1_val+" (Cr)");
+        d3.select("#figure-year2").html(year2 + " : " +year2_val+" (Cr)");
+          for (j=0; j < 6; j++) {
+            if (i !== j) {
+              d3.select("#id"+j).style("opacity",0.1);
+              d3.select("#text_id"+j).style("opacity",0.2);
+              d3.select("#text_id"+i).style("font-size","13px");
+              d3.select("#row_id"+j).style("opacity",0.2);
+              d3.select("#row_id"+i).style("background-color","#FFF056").style("font-weight","bold");
+            }
+          };
+        })
+        .on("mouseout", function(d,i) {
+          for (j=0; j < 6; j++) {
+            d3.select("#id"+j).style("opacity",1);
+            d3.select("#text_id"+j).style("opacity",1);
+            d3.select("#text_id"+i).style("font-size","10px");
+            d3.select("#row_id"+j).style("opacity",1).style("background-color","white").style("font-weight","normal");
+          };
+        });
+ 
+});
+   
 }
 
+ 
+
+
+
+
+ 
+}
+  
+ 
+
+</script>
 </script>
 
 
