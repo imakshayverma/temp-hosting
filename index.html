@@ -366,7 +366,7 @@ var year2=years[years.length-1];
     .attr("class","form-control")
     .attr("id","right-select")
       .on("change", function() {var other_div=d3.select("#left-select").property("value"); 
-        updateData(this.value,other_div,nested[series]) });
+        updateData(other_div,this.value,nested[series]) });
 
 
   select2.selectAll("option")
@@ -799,15 +799,14 @@ y1.domain([
           if(schemes[k].name==scheme_name){
             year1_val=schemes[k].values[0].budget;
             year2_val=schemes[k].values[1].budget;
-            //year1_num=schemes[i].values[0].date.getFullYear();
-            //year2_num=schemes[i].values[1].date.getFullYear();
+           
           }
         }
   
         d3.select("#figure-heading").html(scheme_name).on("click", function(d) { var url="trend_analysis.html?scheme="+scheme_name;
         window.open(url); });
-        d3.select("#figure-year1").html(year1 + " : " +year1_val+" (Cr)");
-        d3.select("#figure-year2").html(year2 + " : " +year2_val+" (Cr)");
+        d3.select("#figure-year1").html(year + " : " +year1_val+" (Cr)");
+        d3.select("#figure-year2").html(other_year + " : " +year2_val+" (Cr)");
           for (j=0; j < 6; j++) {
             if (i !== j) {
               d3.select("#id"+j).style("opacity",0.1);
