@@ -596,7 +596,10 @@ var trows = tbody
     .selectAll("tr")
     .data(scheme2)
     .enter()
+
     .append("tr")
+    .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
+        window.open(url); })
     .attr("id",function(d,i){ return "row_id" + i; });
 
      // create a cell in each row for each column
