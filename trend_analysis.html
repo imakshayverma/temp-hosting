@@ -40,6 +40,9 @@
     .chart_content{
         margin-top: 50px;
     }
+    .chart-column{
+        height: 500px;
+    }
 
     </style>
 </head>
@@ -243,8 +246,9 @@ var checkOption = function (e) {
         chart.useInteractiveGuideline(true);
 
         
-       
-
+       chart.brushExtent([2009,2012]);
+       chart.focusHeight(75);
+       chart.interpolate("linear");
         d3.select('#chart svg')
             .datum(schemes)
             .call(chart);
