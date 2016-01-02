@@ -40,6 +40,22 @@
     .chart_content{
         margin-top: 50px;
     }
+    #download{
+
+
+  -webkit-box-shadow: 0 8px 6px -6px black;
+     -moz-box-shadow: 0 8px 6px -6px black;
+          box-shadow: 0 8px 6px -6px black;
+
+}
+#download:active{
+   -webkit-box-shadow:none;
+     -moz-box-shadow: 0px;
+          box-shadow: none;
+          
+           -webkit-transform: translate(0, 5px); 
+}
+
 
     </style>
 </head>

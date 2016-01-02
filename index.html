@@ -65,6 +65,26 @@
     margin-left: 450px;
     
 }
+
+#download{
+
+
+  -webkit-box-shadow: 0 8px 6px -6px black;
+     -moz-box-shadow: 0 8px 6px -6px black;
+          box-shadow: 0 8px 6px -6px black;
+          outline: 0;
+
+}
+#download:active{
+   -webkit-box-shadow:none;
+     -moz-box-shadow: 0px;
+          box-shadow: none;
+          
+           -webkit-transform: translate(0, 5px); 
+           outline: 0;
+}
+
+
     </style>
 </head>
 
@@ -171,7 +191,7 @@
                         <div id="trendline" ></div>
 
                         <div class="row">
-                            <div class="col-lg-4">
+                            <div class="col-lg-6">
                                 <div class="container-fluid department-table">
                                   <div class="panel panel-default">
                                     <div class="panel-heading ">
@@ -515,6 +535,11 @@ svg.append("g")
               d3.select("#text_id"+i).style("font-size","13px");
               d3.select("#row_id"+j).style("opacity",0.2);
               d3.select("#row_id"+i).style("background-color","#FFF056").style("font-weight","bold");
+              d3.select("#row_id"+i).selectAll("td")  
+              .style(" -webkit-box-shadow" ,"0 8px 6px -6px black")
+              .style("-moz-box-shadow"," 0 8px 6px -6px black")
+              .style("box-shadow"," 0 8px 6px -6px black");
+              
             }
           };
         })
@@ -524,6 +549,8 @@ svg.append("g")
             d3.select("#text_id"+j).style("opacity",1);
             d3.select("#text_id"+i).style("font-size","10px");
             d3.select("#row_id"+j).style("opacity",1).style("background-color","white").style("font-weight","normal");
+          
+       
           };
         });
 //Trendline
@@ -615,7 +642,7 @@ var trows = tbody
         .attr("style", "font-family: Courier") // sets the font style
             .html(function(d) {return (d.value); });
     
-thead.append("th").text('Graphs');
+thead.append("th").style("width","150px").text('Trend Over the Years');
 
 trows.selectAll("td.graph")  
 //use a class so you don't re-select the existing <td> elements
