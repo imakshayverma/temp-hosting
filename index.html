@@ -1,877 +1,740 @@
 <!DOCTYPE html>
-<html lang="en">
 
 <head>
-
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-
-    <title>Budget Visualisation</title>
-
-    <!-- Bootstrap Core CSS -->
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
-
-    <link href="favicon.ico" rel="icon" type="image/x-icon" />
-
-    <link href="css/sb-admin-2.css" rel="stylesheet">
-    <!-- Custom CSS -->
-    <link href="css/custom.css" rel="stylesheet">
-    <!--Font Awesom CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
-
-    <link href='https://fonts.googleapis.com/css?family=PT+Sans' rel='stylesheet' type='text/css'>
-
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    <link rel="icon" href="spinner10.png" type="image/gif" sizes="16x16">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Gothic+A1:600|Lato:300,400,900&display=swap" rel="stylesheet">
+    <title>66000 trees are required to offset a flight from Bangalore to San Fransisco </title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
+        .body{
+            font-family:'Gothic A1', sans-serif;
+        }
+    .outer-wrapper {
+        background: radial-gradient(circle at center, #353c41 10%, #121318 100%);
+        overflow: hidden;
+        height: 100%;
+        width: 100%;
+        width: 100vw;
+
+        position: fixed;
+    }
+
+    .text-group text {
+        fill: white;
+        font-weight: 600;
+        font-size: 34px;
+    }
+    .text-group text.location{
+        font-size: 20px;
+    font-weight: 300;
+    }
+    /**
+       * Selectize bootstrap 4
+       */
+    .country {
+        fill: #d4c745;
+        stroke: #505050;
+        stroke-width: .5px;
+        stroke-linejoin: round;
+        stroke-linecap: round;
+    }
+
+    .arc {
+        fill: none;
+        stroke: cyan;
+        stroke-width: 5px;
+        stroke-linecap: round;
+        stroke-opacity: 1;
+    }
+
+    .mapdot_from,
+    .mapdot_to {
+        opacity: .25;
+    }
+
+    .plane {
+        fill: #c71111;
+    }
 
 
-.axis path,
-.axis line {
+    a {
+        color: white;
+    }
+
+    svg {}
+    </style>
+    <style type="text/css">
+    body {
+        font-family: "Lato", sans-serif;
+        background: rgb(233, 234, 229) url("bg.png");
+    }
+
+    .outer-box {
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.19), 0 3px 9px rgba(0, 0, 0, 0.23);
+        border-radius: 3px;
+        margin: 40px 50px;
+        min-height: 200px;
+        background: white;
+        position: relative;
+    }
+
+    .section1 {
+        background: white url(bg.png);
+        padding: 0px 60px 30px;
+    }
+
+    body {
+        font-family: "Lato", sans-serif;
+
+        color: #000;
+
+    }
+
+    #globe-vis .graticule-outline {
+        fill: none;
+        stroke: rgb(255, 255, 255, 0.1);
+        stroke-width: 1px;
+    }
+
+    .globe-vis path {
+        fill: white
+            /*#D99628;*/
+    }
+
+    .page-headers {
+        background: #ffe300;
+        color: black;
+        margin: 26px 0px;
+        border-radius: 0px 2px 2px 0px;
+        font-size: 20px;
+        margin-left: -35px;
+        padding: 10px 35px;
+    }
+
+    .page-headers h1 {
+        font-size: 19px;
+        font-weight: 600;
+    }
+
+    .hai {
+        fill: yellow;
+    }
+
+    .graticule {
+        fill: none;
+        stroke: white;
+        stroke-width: .1px;
+        stroke-opacity: .17;
+    }
+
+    .header-title {
+        margin-top: 150px;
+        font-weight: 300;
+        font-size: 27px;
+        font-family: 'Lato', sans-serif;
+    }
+
+    .header-title-sub {
+        display: block;
+        font-weight: 700;
+    }
+
+    #vis-container {
+        margin-top: 40px;
+    }
+
+    .slide1-select-dropdown {
+        margin-bottom: 30px;
+    }
+
+    .header-text {
+        font-weight: 300;
+        margin-top: 30px;
+        padding-right: 50px;
+    }
+
+    .section-divider {
+        height: 8px;
+        background: rgba(0, 0, 0, 0.8117647058823529);
+    }
+
+    .header-special-text {
+        font-weight: 900;
+        font-size: 16px;
+        font-family: "Lato", serif;
+    }
+
+    .nav-pills .nav-link {
+        background: rgba(128, 128, 128, 0.16);
+        border-radius: 0px;
+        color: #000000cf;
+        font-weight: 900;
+        padding: 20px 20px;
+        font-size: 15px;
+    }
+
+    .nav-pills .nav-link.active,
+    .nav-pills .show>.nav-link {
+        color: #fff;
+        background-color: #2f353a;
+    }
+
+    .sidenav {
+        margin: 0px -15px;
+        border-right: 1px solid rgba(0, 0, 0, 0.28);
+    }
+
+    svg#globe-vis {
+        cursor: grab;
+    }
+
+    svg#globe-vis:active {
+        /* background: black; */
+        cursor: grabbing;
+    }
+
+    .section2 a.nav-link {
+        padding: 30px;
+        font-weight: 900;
+        background: #ddd;
+        color: #495057;
+        font-size: 22px;
+        border-radius: 5px 5px 0px 0px;
+        border: 1px solid white;
+    }
+
+    div.tab-pane {
+        padding: 0px 100px 50px;
+    }
+
+    .indicator {
+        font-weight: 600;
+    }
+
+    .indicator-row {
+        padding: 20px 0px;
+        border-top: 1px dashed #0000006e;
+    }
+
+    .indicator-row:first-child {
+        border-top: none;
+    }
+
+    .color-key {
+        padding: 20px 170px;
+    }
+
+    span.key-color {
+        display: inline-flex;
+        width: 25px;
+        vertical-align: bottom;
+        height: 20px;
+        margin-right: 10px;
+        border-radius: 3px;
+    }
+
+    span.key-text {
+        font-weight: 600;
+        color: rgba(0, 0, 0, 0.67);
+    }
+
+    .indexes {
+        margin-top: 40px;
+        padding: 0px 100px;
+    }
+
+    .header-index {
+        padding-left: 50px;
+        font-size: 13px;
+    }
+
+    .indicator-row:first-child {
+        padding-top: 0px;
+    }
+
+    .section-highlight {
+        padding: 70px 100px;
+        color: white;
+    }
+
+    footer {
+        background: #343a3f;
+        border-radius: 0px 0px 8px 9px;
+        padding: 30px;
+        text-align: center;
+        padding-bottom: 10px;
+    }
+
+    .external-links {
+        color: white;
+        font-weight: 800;
+        padding-bottom: 15px;
+        font-size: 20px;
+    }
+
+    .developer-text {
+        color: white;
+        font-weight: 300;
+        font-family: "Lato", sans-serif;
+        font-size: 18px;
+    }
+
+    .footer-copyright {
+        color: white;
+        font-family: "Lato", sans-serif;
+        font-weight: 400;
+    }
+
+    .external-links a {
+        color: wheat;
+    }
+
+    .social-media-links a:hover {
+        text-decoration: none;
+    }
+
+    .developer-text .social-media-links a {
+        margin: 0px 4px;
+        color: white;
+        font-size: 30px;
+    }
+
+    span.developer-name {
+        font-size: 28px;
+        font-weight: 700;
+    }
+
+    .d3-tip {
+        line-height: 1.5;
+        padding: 8px;
+        background: rgba(0, 0, 0, 0.8);
+        color: #fff;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    div#vis-key {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .key-component {
+        width: 30px;
+        height: 10px;
+        display: inline-block;
+    }
+
+    .color-ticks {
+        display: inline-block;
+        width: 1px;
+        height: 10px;
+        background: #ddd;
+    }
+
+    .color-ticks {
+        display: inline-block;
+        width: 1px;
+        margin-right: 29px;
+        height: 7px;
+        background: rgba(0, 0, 0, 0.41);
+    }
+
+    .color-bracket {
+        margin-top: -17px;
+    }
+
+    .color-ticks:first-child {
+        background: transparent;
+    }
+
+    .color-num:first-child {
+        color: transparent;
+        margin-right: -10px;
+    }
+
+    .color-bins {
+        margin-top: -10px;
+    }
+
+    .color-num {
+        display: inline-block;
+        font-size: 10px;
+        font-weight: 100;
+    }
+
+    .key-support-text {
+        font-size: 14px;
+        margin-top: 20px;
+        font-weight: 700;
+        color: #343a3f;
+    }
+
+
+    .intro-text {
+        margin-top: 20px;
+        font-weight: 100;
+    }
+    </style>
+    <style>
+        .g-instruction {
+        margin: 34px 10px 0 0;
+        font: oblique 11px sans-serif;
+        color: #aaa;
+        text-align: right;
+    }
+
+    div#vis-scatter {
+        padding: 50px;
+    }
+
+    .axis path {
+        stroke: rgba(0, 0, 0, 0.5);
+    }
+
+    g.tick line {
+        stroke: rgba(0, 0, 0, 0.5);
+    }
+
+    g.tick text {
+        fill: rgba(0, 0, 0, 0.83);
+        font-size: 9px;
+    }
+    .arc {
   fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
+  stroke: red;
+  stroke-width: 5px;
+  stroke-linecap: round;
+  stroke-opacity: .25;
 }
-
-.x.axis path {
-  display: none;
-}
-
-.line {
-  fill: none;
-  stroke: steelblue;
-  stroke-width: 1.5px;
-}
-.year-selection{
-  width:100px;
-}
-
-#left-div {
-    float: left;
-    width: 100px;
-    height: 20px;
-    margin-right: 8px;
-    
-}
-#right-div {
-    margin-left: 450px;
-    
-}
-
-#download{
-
-
-  -webkit-box-shadow: 0 8px 6px -6px black;
-     -moz-box-shadow: 0 8px 6px -6px black;
-          box-shadow: 0 8px 6px -6px black;
-          outline: 0;
-
-}
-#download:active{
-   -webkit-box-shadow:none;
-     -moz-box-shadow: 0px;
-          box-shadow: none;
-          
-           -webkit-transform: translate(0, 5px); 
-           outline: 0;
-}
-
 
     </style>
 </head>
 
 <body>
-
-    <div id="wrapper">
-
-        <!-- Sidebar -->
-        <div id="sidebar-wrapper">
-            <div class="visualisation-title">
-                    <h4>Visualisation Title</h4><br>
-            </div>
-            <div class="col-lg-12">
-                
-                <div class="panel panel-default">
-                    <div class="panel-heading description-heading">
-                        <h2 class="panel-title"><i class="fa fa-list-alt"></i> Description</h2>
-                    </div>
-                    <div class="panel-body">
-                        
-                        Quisque sollicitudin sem augue, et tempor mi fringilla quis. Ut non gravida ligula. Maecenas elementum tortor ac sollicitudin porttitor. Vestibulum condimentum urna et ipsum vehicula, quis tempus sem vestibulum. Quisque in euismod nisl. Cras in diam in tortor consequat gravida vulputate congue dolor. Donec fermentum sapien sed sollicitudin dignissim.
-                        
-
-                    </div>
-                </div>
-
-                <button id="download" type="button " class="down btn btn-primary btn-lg btn-block"><i class="fa fa-download"></i> Download</button>
-                
-
-
-            </div>
-            <div class="sidebar-bottom-content">
-                      <a href="#" class="bottom-links"> <i class="fa fa-file"></i> Glossary</a>
-                      <a href="#" class="bottom-links"><i class="fa fa-phone"></i> Contact Us</a>
-                    
-                </div>
+    <div class="outer-wrapper">
+        <div class="container d-flex h-100">
+            <svg class="mx-auto justify-content-center align-self-center" id="globe-vis">
+                <defs>
+                    <radialGradient id="rgrad" cx="50%" cy="50%" r="75%">
+                        <stop offset="0%" style="stop-color:rgb(0,0,0);stop-opacity:1" />
+                        <stop offset="50%" style="stop-color:rgba(255,255,255,0);stop-opacity:1" />
+                    </radialGradient>
+                </defs>
+                <g class="drop_shadow">
+                    <ellipse cx="350" class="noclicks" cy="503" rx="227.70000000000002" ry="63.25" style="fill: url(&quot;#drop_shadow&quot;);"></ellipse>
+                </g>
+            </svg>
         </div>
-        <!-- /#sidebar-wrapper -->
-
-        <!-- Page Content -->
-        <div id="page-content-wrapper">
-          <a href="#menu-toggle" class="btn btn-default" id="menu-toggle" ><i id="arrow" class="fa fa-arrow-left"></i></a>
-            <div class="container-fluid">
-                <div class="row">
-                    <div class="col-lg-12" style="padding:0px;
-    padding-right: 10px;">
-                        
-
-                        <div class="row budget-select">  
-                            <p id="menu" class="menuchoice">
-                              <select class="form-control" id="sel1">
-                              <option value="Actual Budget">Actual Budget</option>
-                               <option value="Revised Budget">Revised Budget</option>
-                              <option value="Budget">Budget</option>
-                               
-                              </select>
-                            </p>
-                            </div>
-                            
-                        </div>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="panel panel-default">
-                                    <div class="panel-heading chart-heading">
-                                        <h2 class="panel-title"><i class="fa fa-line-chart"></i> Chart</h2>
-                                    </div>
-                                    <div class="panel-body">
-                                        <div class="col-sm-9 chart-column">
-                                            <div class"row selection-row">
-                                              <div class="col-md-12 selection-column">
-                                              </div>
-                                            </div>
-                                            <div class="chart-area"></div>
-                                        </div>
-                                        <div class="col-sm-3 ">
-                                            <div class="panel panel-default">
-                                            <div class="panel-heading figures-heading">
-                                                <h2 class="panel-title"><i class="fa fa-briefcase"></i> Budget Figures</h2>
-                                            </div>
-                                            <div class="panel-body chart-figures">
-                                                <table class="table figures-table">
-                                                  <thead>
-                                                    <tr>
-                                                      <th id="figure-heading">Scheme Name
-                                                      </th>
-                                                    </tr>
-                                                  </thead>
-                                                  <tbody>
-                                                    <tr>
-                                                      <td id="figure-year1">
-                                                        Year : Figures</td>
-                                                    </tr>
-                                                    <tr>
-                                                      <td id="figure-year2">
-                                                        Year  : Figures</td>
-                                                    </tr>
-                                                  </tbody>
-                                                </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="trendline" ></div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <div class="container-fluid department-table">
-                                  <div class="panel panel-default">
-                                    <div class="panel-heading ">
-                                        <h2 class="panel-title"><i class="fa fa-book"></i> Budget Estimates</h2>
-                                    </div>
-                                    <div class="panel-body table-div">
-
-                                            
-                                          </div>
-                                        </div>
-                                        
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- /#page-content-wrapper -->
-
     </div>
-    <!-- /#wrapper -->
-
-    <!-- jQuery -->
-    <script src="js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-
-    <!-- Menu Toggle Script -->
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-queue/3.0.7/d3-queue.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
     <script>
-    $("#menu-toggle").click(function(e) {
-        e.preventDefault();
-        $("#wrapper").toggleClass("toggled");
-        $("#arrow").toggleClass("fa-arrow-right fa-arrow-left")
+    var points = [{
+        type: "Point",
+        coordinates: [12.972442, 277.580643],
+        location: "Your Location",
+        icon: "\uF015"
+    }, {
+        type: "Point",
+        coordinates: [60.615223, 140.389977],
+        location: "Caribe Royale Orlando",
+        icon: "\uF236"
+    }];
 
+    let linestring_data = [{
+        type: "LineString",
+        coordinates: [
+            [12.9716, 77.5946],
+            [57.615223, 120.389977]
+        ],
+        i: 1
+    }];
 
-    });
-    </script>   
+    var tau = 2 * Math.PI;
 
-    <script src="http://d3js.org/d3.v3.min.js"></script>
+    var width = 1060,
+        height = 600;
 
-<script>
-
-
- var margin = { top: 10, right: 100, bottom: 40, left: 40 };
-  var height = 400 - margin.top - margin.bottom;
-  var width = 660 - margin.left - margin.right;
-
-
-
-
-var x = d3.scale.ordinal()
-    .domain([0,1])
-    // Setting the rangePoints instead of rangeBands
-    .rangePoints([0, width], 0);
-var y = d3.scale.linear()
-    .range([height, 0]);
-
-var y1 = d3.scale.linear()
-    .range([height, 0]);
-
-var color = d3.scale.category10();
-
-var xAxis = d3.svg.axis()
-    .scale(x)
-    .tickFormat("")
-    .orient("bottom");
-
-var yAxis = d3.svg.axis()
-    .scale(y)
-
-    .orient("left");
-
-var y2Axis = d3.svg.axis()
-    .scale(y1)
-    .tickFormat("")
-    .orient("left");
-
-var line = d3.svg.line()
-    .interpolate("linear")
-    .x(function(d) { return x(d.ide); })
-    .y(function(d) { return y(d.budget); });
+    var projection = d3.geoOrthographic()
+        .scale(210)
+        .clipAngle(90)
+        .translate([width / 2, height / 2])
+        .rotate([-80, -22]);
 
 
 
+    // var graticule = d3.geo.graticule()
+    //     .extent([[-180, -90], [180 - .1, 90 - .1]]);
 
-//Redraw Begin
-var menu = d3.select("#menu select")
-    .on("change", change);  
+    var geo_path = d3.geoPath()
+        .projection(projection);
 
-
-d3.csv("budget_revision.csv", function(error, data) {
-                      var parseDate = d3.time.format("%Y").parse;
-                      if (error) throw error;
-                      
-                       data.forEach(function(d) {
-                        d.date = parseDate(d.date);
-                        
-                      }); 
-                      formatted = data;
-            
-                      redraw();
-
-                      
-  
-});
- 
-d3.select(window)
-    .on("keydown", function() { altKey = d3.event.altKey; })
-    .on("keyup", function() { altKey = false; });
-var altKey;
-
-
-function change() {
-  d3.transition()
-      .duration(altKey ? 7500 : 1500)
-      .each(redraw);
-}
-
-
-
-
-
-function redraw() { 
-
-  d3.select("svg").remove();
-  d3.select("div.selection-column").select("div").remove();
-  d3.select("div.selection-column").select("div").remove();
-  d3.select("div.table-div").select("table").remove();
-
-
- 
-
-  var svg = d3.select("body").select("div.chart-area").append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-
-  var nested = d3.nest()
-    .key(function(d) { return d.Type; })
-    .map(formatted)
-  
-  
-    // get value from menu selection
-    // the option values are set in HTML and correspond
-    //to the [type] value we used to nest the data  
-    var series = menu.property("value");
-    
-    // only retrieve data from the selected series, using the nest we just created
-    var data = nested[series];
-
-  
-
-  var years=[];
-for(var j=0;j<data.length;j++){
-  var obj=data[j];
-  years.push(obj.date.getFullYear());
-}
-
-var year1=years[0];
-var year2=years[years.length-1];
-  var select = d3.select("body").select("div.selection-column")
-    .append("div")
-    .attr("class","year-selection ")
-    .attr("id","left-div")
-    .append("select")
-    .attr("class","form-control")
-    .attr("id","left-select")
-      .on("change", function() { var other_div=d3.select("#right-select").property("value");
-        updateData(this.value,other_div,formatted) });
-  
-
-  select
-  .selectAll("option")
-      .data(data)
-    .enter().append("option")
-    .attr("class","left-selection")
-      .attr("value", function(d) { return d.date.getFullYear(); })
-      .text(function(d) { return d.date.getFullYear(); })
-      .style("margin","0px 0px 0px 0px");
-      
-
-  var select2 = d3.select("body").select("div.selection-column")
-    .append("div")
-    .attr("class","year-selection")
-    .attr("id","right-div")
-    .append("select")
-    .attr("class","form-control")
-    .attr("id","right-select")
-      .on("change", function() {var other_div=d3.select("#left-select").property("value"); 
-        updateData(other_div,this.value,nested[series]) });
-
-
-  select2.selectAll("option")
-      .data(data)
-    .enter().append("option")
-      .attr("class","right-selection")
-      .attr("value", function(d) { return d.date.getFullYear(); })
-      
-      .text(function(d) { return d.date.getFullYear(); })
-
-var checkOption = function (e) {
-
-        if(e == data[data.length-1]){
-       
-            return d3.select(this).attr("selected", "selected");
-        }
-    };
-    
-    select2.selectAll("option").each(checkOption);
-      
-
-   
-    
-    dataset=[];
-    for(var i = 0; i < data.length; i++) {
-    var obj = data[i];
-    if(obj.date.getFullYear()==year1){
-      obj.ide=parseInt("0");
-      dataset.push(obj);
+    function transition(path) {
+        path.transition().duration(2000)
+            .attrTween("stroke-dasharray", tweenDash)
+            .styleTween("opacity", tweenOpacity)
+        //.transition().delay(5100).duration(100)
+        //.style("opacity", 0)
+        //.remove();
     }
-      
-}
-  for(var j = 0 ; j<data.length;j++){
-    var obj1=data[j];
-    if( obj1.date.getFullYear()==year2){
-      obj1.ide=parseInt("1");
-      dataset.push(obj1);
+
+    function tweenDash() {
+
+        var l = this.getTotalLength(),
+            i = d3.interpolateString("0," + l, l + "," + l);
+        return function(t) { return i(t); };
     }
-  }
 
-  if(dataset[0].date==dataset[1].date){
-var temp = jQuery.extend(true, {}, dataset[0]);
-temp.ide=0;
-dataset[0]=temp;
-}
+    function tweenOpacity() {
+        return function(t) { return 1; };
+    }
 
-  color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "date" && key!== "Type"; }));
+    var svg = d3.select("body").select("#globe-vis")
+        .attr("width", width)
+        .attr("height", height);
 
+    svg.append("circle")
+        .attr("class", "graticule-outline")
+        .attr("cx", width / 2)
+        .attr("cy", height / 2)
+        .attr("r", projection.scale());
 
+    g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-  var schemes = color.domain().map(function(name) {
-    
-    return {
-      name: name,
-      values: dataset.map(function(d) { 
-        return { budget: +d[name],ide:d.ide};
-     
-      })
-    };
-  });
- 
+    var arc = d3.arc()
+        .innerRadius(210)
+        .outerRadius(300)
+        .startAngle(0);
 
 
-  schemes.pop();
- x.domain(d3.extent(dataset, function(d) { return d.ide; }));
-  y.domain([
-    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
-    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
-  ]);
-y1.domain([
-    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
-    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
-  ]);
-  
-  
-svg.append("g")
-      .attr("class", "x axis")
-      .attr("transform", "translate(0," + height + ")")
-      .call(xAxis);
+    let textgroup = svg.append("g").attr("class", "text-group")
+
+    var tree_counter = textgroup.append("text")
+    .attr("x", 10)
+    .attr("y", 60)
+    .attr("class", "tree-counter")
+    .text("0")
 
 
-  svg.append("g")
-      .attr("class", "y axis")
-      .call(yAxis)
-      .append("text")
-          .attr("transform","rotate(-90)")
-          .attr("y",-50)
-          .attr("dy",".51em")
-          .style("text-anchor","end")
-          .text("Price ($)");
-    
-      
+    textgroup.append("text")
+    .attr("x", 120)
+    .attr("y", 60)
+    .attr("class","location")
+    .html(function(d){
+        
+        return "trees are required to the carbon emmissions of a"//return '<tspan x=0 dy="1.2em">trees are required to offset</tspan><tspan  x="0" dy="1.2em">the carbon emmissions of</tspan>'
 
-      svg.append("g")       
-        .attr("class", "y axis")  
-        .attr("transform", "translate(" + width + " ,0)") 
-        .call(y2Axis)
+    })
 
-      
+    var km_counter = textgroup.append("text")
+    .attr("x", 540)
+    .attr("y", 60)
+    .attr("class", "km-counter")
+    .text(0)
 
-  var scheme = svg.selectAll(".scheme")
-      .data(schemes)
-    .enter().append("g")
-      .attr("class", "scheme");
-
-  scheme.append("path")
-      .attr("class", "line")
-      .attr("id",function(d,i){ return "id" + i; })
-      .attr("d", function(d) { return line(d.values); })
-      .style("stroke", function(d) { return color(d.name); });
+    textgroup.append("text")
+    .attr("x", 650)
+    .attr("y", 60)
+    .attr("class","location")
+    .text(function(d){
+        return " KM flight from Bangalore to San Fransisco"
+    })
 
 
 
-  scheme
-  .append("text")
-    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })    
-      .attr("transform", function(d) { return "translate(" + (x(d.value.ide) +10)+ "," + y(d.value.budget) + ")"; })
-      .attr("id",function(d,i){ return "text_id" + i; })
-      .attr("x", 3)
-      .attr("dy", ".35em")
-      
-      .text(function(d) { return d.name; })
-      .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
-        window.open(url); })
-      .on("mouseover",function(d,i) { 
-        var scheme_name=d3.select("#text_id"+i).html();
-        var year1_val, year2_val,year1_num,year2_num; 
-        for (var k=0;k<schemes.length;k++){
+    // Add the background arc, from 0 to 100% (tau).
+    var background = g.append("path")
+        .datum({ endAngle: tau })
+        .style("fill", "transparent")
+        .attr("d", arc);
 
-          if(schemes[k].name==scheme_name){
-            year1_val=schemes[k].values[0].budget;
-            year2_val=schemes[k].values[1].budget;
-            //year1_num=schemes[i].values[0].date.getFullYear();
-            //year2_num=schemes[i].values[1].date.getFullYear();
-          }
-        }
-  
-        d3.select("#figure-heading").html(scheme_name).on("click", function(d) { var url="trend_analysis.html?scheme="+scheme_name;
-        window.open(url); });
-        d3.select("#figure-year1").html(year1 + " : " +year1_val+" (Cr)");
-        d3.select("#figure-year2").html(year2 + " : " +year2_val+" (Cr)");
-          for (j=0; j < 6; j++) {
-            if (i !== j) {
-              d3.select("#id"+j).style("opacity",0.1);
-              d3.select("#text_id"+j).style("opacity",0.2);
-              d3.select("#text_id"+i).style("font-size","13px");
-              d3.select("#row_id"+j).style("opacity",0.2);
-              d3.select("#row_id"+i).style("background-color","#FFF056").style("font-weight","bold");
-              d3.select("#row_id"+i).selectAll("td")  
-              .style(" -webkit-box-shadow" ,"0 8px 6px -6px black")
-              .style("-moz-box-shadow"," 0 8px 6px -6px black")
-              .style("box-shadow"," 0 8px 6px -6px black");
-              
-            }
-          };
-        })
-        .on("mouseout", function(d,i) {
-          for (j=0; j < 6; j++) {
-            d3.select("#id"+j).style("opacity",1);
-            d3.select("#text_id"+j).style("opacity",1);
-            d3.select("#text_id"+i).style("font-size","10px");
-            d3.select("#row_id"+j).style("opacity",1).style("background-color","white").style("font-weight","normal");
-          
-       
-          };
+    // Add the foreground arc in orange, currently showing 12.r7%.
+    var foreground = g.append("path")
+        .datum({ endAngle: tau })
+        .style("fill", "transparent")
+        .attr("d", arc);
+
+    // Every so often, start a transition to a new random angle. The attrTween
+    // definition is encapsulated in a separate function (a closure) below.
+
+    foreground.transition()
+        .duration(8000)
+        .style("fill", "url(#rgrad)")
+    //.attrTween("d", arcTween(2 * tau));
+
+    const markerGroup = svg.append('g');
+
+    function drawMarkers() {
+        const markers = markerGroup.selectAll('circle')
+            .data([points[1]]);
+        markers
+            .enter()
+            .append('circle')
+            .merge(markers)
+            .attr("class", "markers")
+            .attr('cx', d => projection([d.coordinates[0], d.coordinates[1]])[0])
+            .attr('cy', d => projection([d.coordinates[0], d.coordinates[1]])[1])
+            .attr('fill', d => {
+                return "green"
+            })
+            .attr("opacity", 0)
+            .attr('r', 7);
+
+        
+        markerGroup.each(function() {
+            this.parentNode.appendChild(this);
         });
-//Trendline
-var scheme2 = color.domain().map(function(name) {
-    
-    return {
-      name: name,
-      values: data.map(function(d) { 
-        return { budget: +d[name],date:d.date};
-     
-      })
-    };
-  });
-var tr_width = 100;
-var tr_height = 25;
-var tr_x = d3.time.scale().range([0, tr_width - 2]);
-var tr_y = d3.scale.linear().range([tr_height - 4, 0]);
-var tr_line = d3.svg.line()
-             .interpolate("basis")
-            .x(function(d) { return x(d.date); })
-            .y(function(d) { return y(d.budget); });
-          
-              
+
+        //d3.select(".markers").transition().duration(1000).attr("opacity", 1)
+
+
+                    
+    }
+
+    // Returns a tween for a transition’s "d" attribute, transitioning any selected
+    // arcs from their current angle to the specified new angle.
+    function arcTween(newAngle) {
+
+        // The function passed to attrTween is invoked for each selected element when
+        // the transition starts, and for each element returns the interpolator to use
+        // over the course of transition. This function is thus responsible for
+        // determining the starting angle of the transition (which is pulled from the
+        // element’s bound datum, d.endAngle), and the ending angle (simply the
+        // newAngle argument to the enclosing function).
+        return function(d) {
+
+            // To interpolate between the two angles, we use the default d3.interpolate.
+            // (Internally, this maps to d3.interpolateNumber, since both of the
+            // arguments to d3.interpolate are numbers.) The returned function takes a
+            // single argument t and returns a number between the starting angle and the
+            // ending angle. When t = 0, it returns d.endAngle; when t = 1, it returns
+            // newAngle; and for 0 < t < 1 it returns an angle in-between.
+            var interpolate = d3.interpolate(d.endAngle, newAngle);
+
+            return function(t) {
+                d.endAngle = interpolate(t);
+                return arc(d);
+            };
+        };
+    }
 
 
 
-  //Populate Table with data
+    d3.json("world_countries.json", function(error, world) {
+        console.log(world)
+        var countries = world.features //topojson.object(world, world.objects.countries).geometries,
+        i = -1,
+            n = countries.length;
 
-   // The table generation function
-columns=["name"];
-    
+        var country = svg.selectAll(".country")
+            .data(countries)
+            .enter().insert("path", ".graticule")
+            .attr("class", "country")
+            .attr("d", geo_path);
 
-
-var scheme2 = color.domain().map(function(name) {
-    
-    return {
-      name: name,
-      values: data.map(function(d) { 
-        return { budget: +d[name],date:d.date};
-     
-      })
-    };
-  });
- scheme2.pop()   
-
+        var plane = svg.append("path")
+            .attr("class", "plane")
+            .attr("d", "M.2 25.5c0-2.04 1.785-3.825 3.825-3.825H18.05L30.8 1.275h5.1l-6.375 20.4H43.55l3.825-5.1H51.2L48.65 25.5 51.2 34.425h-3.825l-3.825-5.1h-14.025l6.375 20.4h-5.1l-12.75-20.4h-14.025C1.985 29.325.2 27.54.2 25.5z")
+            .style("fill", "white")
+            .attr('transform', "translate(" + width / 2.06 + "," + height / 1.85 + ") scale(0,0)")
+            .transition().duration(3000)
+            .attr("transform", "translate(" + width / 2.1 + "," + height / 1.57 + ") scale(1,1)")
+            .transition().duration(2000)
+            .attr("transform", "translate(" + width / 2.0 + "," + height / 2 + ") scale(0,0)")
 
 
 
 
-var table = d3.select("body").select("div.table-div")
-    .attr("style", "padding: 20px")
-    .append("table")
-    .attr("class","table")
-        thead = table.append("thead"),
-        tbody = table.append("tbody");
+        /*var arcs = svg.selectAll(".arc")
+            .data(linestring_data, function(d) {return d.i; })
+            .enter().append("path")
+            .attr("class", "arc")
+            .style("opacity", 1)
+            .attr("d", geo_path)
+            .attr("sdsd", function(d){
+                console.log(d, "herer")
+            })
+            .call(transition);
 
-var thead = table.append("thead").append("tr");
+        */
 
-thead.selectAll("th")
-    .data(columns)
-    .enter()
-    .append("th")
-    .text(function(d) {
-        return d.toUpperCase();
-    });
+        tree_counter.transition().duration(4000)
+            .tween("text", function(d) {
+                console.log("d")
+              var i = d3.interpolate(0, 66000);
+              return function(t) {
 
-var tbody = table.append("tbody");
-
-var trows = tbody
-    .selectAll("tr")
-    .data(scheme2)
-    .enter()
-
-    .append("tr")
-    .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
-        window.open(url); })
-    .attr("id",function(d,i){ return "row_id" + i; });
-
-     // create a cell in each row for each column
-   var cells = trows.selectAll("td")
-        .data(function(row) {
-            return columns.map(function(column) {
-              
-                return {column: column, value: row[column]};
+                tree_counter.text(Math.floor(i(t)));
+              };
             });
-        })
-        .enter()
-        .append("td")
-        .attr("style", "font-family: Courier") // sets the font style
-            .html(function(d) {return (d.value); });
-    
-thead.append("th").style("width","150px").text('Trend Over the Years');
 
-trows.selectAll("td.graph")  
-//use a class so you don't re-select the existing <td> elements
-          .data(function(row) {
-            return [row];
-        })
-          .enter()
-            .append("td")
-            .attr("class", "graph")
-            .each(lines)
-            .style("height","40px")
-            .style("width","100px"); 
+        km_counter.transition().duration(4000)
+            .tween("text", function(d) {
+                console.log("d")
+              var i = d3.interpolate(0, 16097);
+              return function(t) {
+
+                km_counter.text(Math.floor(i(t)));
+              };
+            });
 
 
+        d3.transition()
+            .delay(250)
+            .duration(5250)
+            .tween("rotate", function() {
+                console.log(points[1])
+                var point = d3.geoCentroid(points[1]),
 
-    function lines(scheme_data) {  
-    var width = 100, height = 20; 
-   
-    var sc_data = []
-    for (i = 0; i < scheme_data.values.length; i++) {
-        
-        sc_data[i] = {
-            'x': scheme_data.values[i].date,
-            'y': scheme_data.values[i].budget
-        }
-    }
-    
-    var x = d3.time.scale()
-        .range([0, width ])
-        .domain(d3.extent(sc_data, function(d) {return d.x; }));
+                    rotate = d3.interpolate(projection.rotate(), [-point[0], -point[1]]);
+                console.log(point)
+                return function(t) {
+                    drawMarkers()
 
-    var y = d3.scale.linear()
-        .range([height, 0])
-        .domain([
-    d3.min(sc_data, function(d) {return d.y; }),
-    d3.max(sc_data, function(d) {return d.y; })
-  ]);
-  
-    
-    var line = d3.svg.line()
-                .interpolate("basis")
-                .x(function(d) {return x(d.x)})
-                .y(function(d) {return y(d.y)});
-  
-    d3.select(this).append('svg')
-            .attr('width', width)
-            .attr('height', height)
-         .append('path')
-            .attr('class','line')
-            .datum(sc_data)
-            .attr('d', line);
-
-}
-  
-
-// render the table
+                 
+                    projection.rotate(rotate(t));
+                    country.attr("d", geo_path);
 
 
+                };
+            })
 
 
-    
+        /*step();
+
+        function step() {
+          if (++i >= n) i = 0;
 
 
-
-      function updateData(year,other_year) {
-        
-        d3.csv("budget_revision.csv", function(error, data) {
-                      if (error) throw error;
-                      var parseDate = d3.time.format("%Y").parse;
-                       data.forEach(function(d) {
-                        d.date = parseDate(d.date);
-                        
-                      }); 
-                      updated_data=data;
-                      
-
-        var nested = d3.nest()
-    .key(function(d) { return d.Type; })
-    .map(updated_data)
-  
-  
-    // get value from menu selection
-    // the option values are set in HTML and correspond
-    //to the [type] value we used to nest the data  
-    var series = menu.property("value");
-    
-    // only retrieve data from the selected series, using the nest we just created
-  
-   var data_up=nested[series];
-
-        d3.selectAll(".scheme").remove();
-   
+          country.transition()
+              .style("fill", function(d, j) { return j === i ? "red" : "#b8b8b8"; });
 
 
-
-dataset=[];
-    for(var i = 0; i < data_up.length; i++) {
-    var obj = data_up[i];
-    if(obj.date.getFullYear()==year){
-      obj.ide=parseInt("0");
-
-      dataset.push(obj);
-    }
-      
-}
-  for(var j = 0 ; j<data_up.length;j++){
-    var obj1=data_up[j];
-    if( obj1.date.getFullYear()==other_year){
-
-      obj1.ide=parseInt("1");
-      dataset.push(obj1);
-    }
-  }
-
-if(dataset[0].date==dataset[1].date){
-var temp = jQuery.extend(true, {}, dataset[0]);
-temp.ide=0;
-dataset[0]=temp;
-}
-  
-color.domain(d3.keys(dataset[0]).filter(function(key) { return key !== "date" && key!== "Type"; }));
-
-
-
-  var schemes = color.domain().map(function(name) {
-    
-    return {
-      name: name,
-      values: dataset.map(function(d) { 
-        return { budget: +d[name],ide:d.ide};
-     
-      })
-    };
-  });
-
-
-schemes.pop();
-x.domain(d3.extent(dataset, function(d) { return d.ide; }));
-
-  y.domain([
-    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
-    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
-  ]);
-y1.domain([
-    d3.min(schemes, function(c) { return d3.min(c.values, function(v) { return v.budget; }); }),
-    d3.max(schemes, function(c) { return d3.max(c.values, function(v) { return v.budget; }); })
-  ]);
-    
-
-
-    // Select the section we want to apply our changes to
-    
-    d3.select("body").transition();
-      var scheme = svg.selectAll(".scheme")
-      .data(schemes)
-    .enter().append("g")
-      .attr("class", "scheme");
-
-  scheme.append("path")
-      .attr("class", "line")
-      .attr("id",function(d,i){ return "id" + i; })
-      .attr("d", function(d) { return line(d.values); })
-      .style("stroke", function(d) { return color(d.name); });
-
- scheme
-  .append("text")
-    .datum(function(d) { return {name: d.name, value: d.values[d.values.length - 1]}; })    
-      .attr("transform", function(d) { return "translate(" + (x(d.value.ide) +10)+ "," + y(d.value.budget) + ")"; })
-      .attr("id",function(d,i){ return "text_id" + i; })
-      .attr("x", 3)
-      .attr("dy", ".35em")
-      
-      .text(function(d) { return d.name; })
-      .on("click", function(d) { var url="trend_analysis.html?scheme="+d.name;
-        window.open(url); })
-      .on("mouseover",function(d,i) { 
-        var scheme_name=d3.select("#text_id"+i).html();
-        var year1_val, year2_val,year1_num,year2_num; 
-        for (var k=0;k<schemes.length;k++){
-
-          if(schemes[k].name==scheme_name){
-            year1_val=schemes[k].values[0].budget;
-            year2_val=schemes[k].values[1].budget;
-           
-          }
-        }
-  
-        d3.select("#figure-heading").html(scheme_name).on("click", function(d) { var url="trend_analysis.html?scheme="+scheme_name;
-        window.open(url); });
-        d3.select("#figure-year1").html(year + " : " +year1_val+" (Cr)");
-        d3.select("#figure-year2").html(other_year + " : " +year2_val+" (Cr)");
-          for (j=0; j < 6; j++) {
-            if (i !== j) {
-              d3.select("#id"+j).style("opacity",0.1);
-              d3.select("#text_id"+j).style("opacity",0.2);
-              d3.select("#text_id"+i).style("font-size","13px");
-              d3.select("#row_id"+j).style("opacity",0.2);
-              d3.select("#row_id"+i).style("background-color","#FFF056").style("font-weight","bold");
-            }
-          };
-        })
-        .on("mouseout", function(d,i) {
-          for (j=0; j < 6; j++) {
-            d3.select("#id"+j).style("opacity",1);
-            d3.select("#text_id"+j).style("opacity",1);
-            d3.select("#text_id"+i).style("font-size","10px");
-            d3.select("#row_id"+j).style("opacity",1).style("background-color","white").style("font-weight","normal");
-          };
-        });
- 
-});
-   
-}
-
- 
-
-
-
-
- 
-}
-  
- 
-
-</script>
-</script>
-
-
-
+          d3.transition()
+              .delay(250)
+              .duration(1250)
+              .tween("rotate", function() {
+                var point = d3.geoCentroid(countries[i]),
+                    rotate = d3.interpolate(projection.rotate(), [-point[0], -point[1]]);
+                return function(t) {
+                  projection.rotate(rotate(t));
+                  country.attr("d", path);
+                };
+              })
+            .transition()
+              .on("end", step);
+        }*/
+    });
+    </script>
 </body>
 
 </html>
