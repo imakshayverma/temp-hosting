@@ -9,9 +9,10 @@
     <title>66000 trees are required to offset a flight from Bangalore to San Fransisco </title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
-        .body{
-            font-family:'Gothic A1', sans-serif;
-        }
+    .body {
+        font-family: 'Gothic A1', sans-serif;
+    }
+
     .outer-wrapper {
         background: radial-gradient(circle at center, #353c41 10%, #121318 100%);
         overflow: hidden;
@@ -25,12 +26,14 @@
     .text-group text {
         fill: white;
         font-weight: 600;
-        font-size: 34px;
+        font-size: 42px;
     }
-    .text-group text.location{
-        font-size: 20px;
-    font-weight: 300;
+
+    .text-group text.location {
+        font-size: 26px;
+        font-weight: 300;
     }
+
     /**
        * Selectize bootstrap 4
        */
@@ -409,6 +412,14 @@
   stroke-linecap: round;
   stroke-opacity: .25;
 }
+svg text.font-icon{
+    font-family: FontAwesome;
+}
+
+text.hastag {
+    font-weight: 800;
+    font-size: 25px;
+}
 
     </style>
 </head>
@@ -518,36 +529,62 @@
 
     let textgroup = svg.append("g").attr("class", "text-group")
 
+    let tree_icon = textgroup.append("text")
+        .attr("x", 0)
+        .attr("class", "font-icon")
+        .attr("y", 180)
+        .html(function(d) {
+            return '&#xf1bb'
+        })
+
     var tree_counter = textgroup.append("text")
-    .attr("x", 10)
-    .attr("y", 60)
-    .attr("class", "tree-counter")
-    .text("0")
+        .attr("x", 50)
+        .attr("y", 180)
+        .attr("class", "tree-counter")
+        .text("0")
 
 
     textgroup.append("text")
-    .attr("x", 120)
-    .attr("y", 60)
-    .attr("class","location")
-    .html(function(d){
-        
-        return "trees are required to the carbon emmissions of a"//return '<tspan x=0 dy="1.2em">trees are required to offset</tspan><tspan  x="0" dy="1.2em">the carbon emmissions of</tspan>'
+        .attr("x", 10)
+        .attr("y", 190)
+        .attr("class", "location")
+        .html(function(d) {
 
-    })
+            return '<tspan x=0 dy="1.2em">trees offset their</tspan><tspan  x="0" dy="1.2em">carbon emmissions of</tspan>'
 
-    var km_counter = textgroup.append("text")
-    .attr("x", 540)
-    .attr("y", 60)
-    .attr("class", "km-counter")
-    .text(0)
+        })
+
+    var km1_counter = textgroup.append("text")
+        .attr("x", 10)
+        .attr("y", 350)
+        .attr("class", " font-icon")
+        .html(function(d) {
+            return '&#xf072'
+        })
+
+    var sub_text_flight = textgroup.append("text")
+        .attr("x", 55)
+        .attr("y", 350)
+        .attr("class", " ")
+        .html(function(d) {
+            return '1 flight'
+        })
 
     textgroup.append("text")
-    .attr("x", 650)
-    .attr("y", 60)
-    .attr("class","location")
-    .text(function(d){
-        return " KM flight from Bangalore to San Fransisco"
-    })
+        .attr("x", 10)
+        .attr("y", 350)
+        .attr("class", "location")
+        .html(function(d) {
+            return '<tspan x=0 dy="1.2em">Bangalore to San Fransisco</tspan>'
+        })
+
+    textgroup.append("text")
+        .attr("x", 780)
+        .attr("y", 300)
+        .attr("class", "hastag")
+        .html(function(d) {
+            return '#OffsetYourCarbonTax'
+        })
 
 
 
@@ -589,7 +626,7 @@
             .attr("opacity", 0)
             .attr('r', 7);
 
-        
+
         markerGroup.each(function() {
             this.parentNode.appendChild(this);
         });
@@ -597,7 +634,7 @@
         //d3.select(".markers").transition().duration(1000).attr("opacity", 1)
 
 
-                    
+
     }
 
     // Returns a tween for a transition’s "d" attribute, transitioning any selected
@@ -647,7 +684,7 @@
             .style("fill", "white")
             .attr('transform', "translate(" + width / 2.06 + "," + height / 1.85 + ") scale(0,0)")
             .transition().duration(3000)
-            .attr("transform", "translate(" + width / 2.1 + "," + height / 1.57 + ") scale(1,1)")
+            .attr("transform", "translate(" + width / 2.1 + "," + height /2 + ") scale(1,1)")
             .transition().duration(2000)
             .attr("transform", "translate(" + width / 2.0 + "," + height / 2 + ") scale(0,0)")
 
@@ -670,22 +707,13 @@
         tree_counter.transition().duration(4000)
             .tween("text", function(d) {
                 console.log("d")
-              var i = d3.interpolate(0, 66000);
-              return function(t) {
+                var i = d3.interpolate(0, 66000);
+                return function(t) {
 
-                tree_counter.text(Math.floor(i(t)));
-              };
+                    tree_counter.text(Math.floor(i(t)));
+                };
             });
 
-        km_counter.transition().duration(4000)
-            .tween("text", function(d) {
-                console.log("d")
-              var i = d3.interpolate(0, 16097);
-              return function(t) {
-
-                km_counter.text(Math.floor(i(t)));
-              };
-            });
 
 
         d3.transition()
@@ -700,7 +728,7 @@
                 return function(t) {
                     drawMarkers()
 
-                 
+
                     projection.rotate(rotate(t));
                     country.attr("d", geo_path);
 
