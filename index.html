@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Gothic+A1:600|Lato:300,400,900&display=swap" rel="stylesheet">
-    <title>66000 trees are required to offset a flight from Bangalore to San Fransisco </title>
+    <title>66000 trees are required to offset a flight from Bangalore to San Fransisco</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <style>
     .body {
@@ -449,7 +449,7 @@ text.hastag {
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.9.1/d3-tip.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
     <script>
-    var points = [{
+    let points = [{
         type: "Point",
         coordinates: [12.972442, 277.580643],
         location: "Your Location",
@@ -470,12 +470,12 @@ text.hastag {
         i: 1
     }];
 
-    var tau = 2 * Math.PI;
+    let tau = 2 * Math.PI;
 
-    var width = 1060,
+    let width = 1060,
         height = 600;
 
-    var projection = d3.geoOrthographic()
+    let projection = d3.geoOrthographic()
         .scale(210)
         .clipAngle(90)
         .translate([width / 2, height / 2])
@@ -483,10 +483,10 @@ text.hastag {
 
 
 
-    // var graticule = d3.geo.graticule()
+    // let graticule = d3.geo.graticule()
     //     .extent([[-180, -90], [180 - .1, 90 - .1]]);
 
-    var geo_path = d3.geoPath()
+    let geo_path = d3.geoPath()
         .projection(projection);
 
     function transition(path) {
@@ -500,7 +500,7 @@ text.hastag {
 
     function tweenDash() {
 
-        var l = this.getTotalLength(),
+        let l = this.getTotalLength(),
             i = d3.interpolateString("0," + l, l + "," + l);
         return function(t) { return i(t); };
     }
@@ -509,7 +509,7 @@ text.hastag {
         return function(t) { return 1; };
     }
 
-    var svg = d3.select("body").select("#globe-vis")
+    let svg = d3.select("body").select("#globe-vis")
         .attr("width", width)
         .attr("height", height);
 
@@ -521,7 +521,7 @@ text.hastag {
 
     g = svg.append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
 
-    var arc = d3.arc()
+    let arc = d3.arc()
         .innerRadius(210)
         .outerRadius(300)
         .startAngle(0);
@@ -537,7 +537,7 @@ text.hastag {
             return '&#xf1bb'
         })
 
-    var tree_counter = textgroup.append("text")
+    let tree_counter = textgroup.append("text")
         .attr("x", 50)
         .attr("y", 180)
         .attr("class", "tree-counter")
@@ -554,7 +554,7 @@ text.hastag {
 
         })
 
-    var km1_counter = textgroup.append("text")
+    let km1_counter = textgroup.append("text")
         .attr("x", 10)
         .attr("y", 350)
         .attr("class", " font-icon")
@@ -562,7 +562,7 @@ text.hastag {
             return '&#xf072'
         })
 
-    var sub_text_flight = textgroup.append("text")
+    let sub_text_flight = textgroup.append("text")
         .attr("x", 55)
         .attr("y", 350)
         .attr("class", " ")
@@ -589,13 +589,13 @@ text.hastag {
 
 
     // Add the background arc, from 0 to 100% (tau).
-    var background = g.append("path")
+    let background = g.append("path")
         .datum({ endAngle: tau })
         .style("fill", "transparent")
         .attr("d", arc);
 
     // Add the foreground arc in orange, currently showing 12.r7%.
-    var foreground = g.append("path")
+    let foreground = g.append("path")
         .datum({ endAngle: tau })
         .style("fill", "transparent")
         .attr("d", arc);
@@ -655,7 +655,7 @@ text.hastag {
             // single argument t and returns a number between the starting angle and the
             // ending angle. When t = 0, it returns d.endAngle; when t = 1, it returns
             // newAngle; and for 0 < t < 1 it returns an angle in-between.
-            var interpolate = d3.interpolate(d.endAngle, newAngle);
+            let interpolate = d3.interpolate(d.endAngle, newAngle);
 
             return function(t) {
                 d.endAngle = interpolate(t);
@@ -668,30 +668,27 @@ text.hastag {
 
     d3.json("world_countries.json", function(error, world) {
         console.log(world)
-        var countries = world.features //topojson.object(world, world.objects.countries).geometries,
+        let countries = world.features //topojson.object(world, world.objects.countries).geometries,
         i = -1,
             n = countries.length;
 
-        var country = svg.selectAll(".country")
+        let country = svg.selectAll(".country")
             .data(countries)
             .enter().insert("path", ".graticule")
             .attr("class", "country")
             .attr("d", geo_path);
 
-        var plane = svg.append("path")
+        let plane = svg.append("path")
             .attr("class", "plane")
             .attr("d", "M.2 25.5c0-2.04 1.785-3.825 3.825-3.825H18.05L30.8 1.275h5.1l-6.375 20.4H43.55l3.825-5.1H51.2L48.65 25.5 51.2 34.425h-3.825l-3.825-5.1h-14.025l6.375 20.4h-5.1l-12.75-20.4h-14.025C1.985 29.325.2 27.54.2 25.5z")
             .style("fill", "white")
             .attr('transform', "translate(" + width / 2.06 + "," + height / 1.85 + ") scale(0,0)")
             .transition().duration(3000)
-            .attr("transform", "translate(" + width / 2.1 + "," + height /2 + ") scale(1,1)")
+            .attr("transform", "translate(" + width / 2.1 + "," + height / 2 + ") scale(1,1)")
             .transition().duration(2000)
             .attr("transform", "translate(" + width / 2.0 + "," + height / 2 + ") scale(0,0)")
 
-
-
-
-        /*var arcs = svg.selectAll(".arc")
+        /*let arcs = svg.selectAll(".arc")
             .data(linestring_data, function(d) {return d.i; })
             .enter().append("path")
             .attr("class", "arc")
@@ -707,28 +704,22 @@ text.hastag {
         tree_counter.transition().duration(4000)
             .tween("text", function(d) {
                 console.log("d")
-                var i = d3.interpolate(0, 66000);
+                let i = d3.interpolate(0, 66000);
                 return function(t) {
 
                     tree_counter.text(Math.floor(i(t)));
                 };
             });
 
-
-
         d3.transition()
             .delay(250)
             .duration(5250)
             .tween("rotate", function() {
                 console.log(points[1])
-                var point = d3.geoCentroid(points[1]),
-
+                let point = d3.geoCentroid(points[1]),
                     rotate = d3.interpolate(projection.rotate(), [-point[0], -point[1]]);
-                console.log(point)
                 return function(t) {
                     drawMarkers()
-
-
                     projection.rotate(rotate(t));
                     country.attr("d", geo_path);
 
@@ -751,7 +742,7 @@ text.hastag {
               .delay(250)
               .duration(1250)
               .tween("rotate", function() {
-                var point = d3.geoCentroid(countries[i]),
+                let point = d3.geoCentroid(countries[i]),
                     rotate = d3.interpolate(projection.rotate(), [-point[0], -point[1]]);
                 return function(t) {
                   projection.rotate(rotate(t));
