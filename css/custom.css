@@ -1,0 +1,49 @@
+.site-blocks-cover h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.site-blocks-cover .intro .heading {
+    margin-left: 0px;
+}
+
+.site-blocks-cover .img-wrap {
+    top: 50px;
+}
+
+.col-md-6.ml-auto.main-header-text {
+    margin-top: 100px;
+}
+
+.main-header-text{
+	margin-top : 100px;
+}
+
+.font-700{
+	font-weight: 700;
+}
+
+.btn{
+	border-radius: 10px;
+}
+
+img.org-img {
+    width: 110px;
+    margin-top: 8px;
+}
+
+.footer-org-logo {
+    width: 150px;
+    margin-left: -10px;
+    margin-bottom: 15px;
+}
+
+.site-blocks-cover, .site-blocks-cover > .container > .row {
+    min-height: 400px;
+    height: 420px;
+}
+
+.site-footer {
+ 	padding-top: 6rem;
+}
