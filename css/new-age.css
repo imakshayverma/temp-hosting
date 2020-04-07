@@ -372,8 +372,7 @@ section.contact ul.list-social li.social-google-plus a:hover {
 }
 
 footer {
-  padding: 25px 0;
-  text-align: center;
+  padding: 40px 0;
   color: rgba(255, 255, 255, 0.3);
   background-color: #222222;
 }
@@ -388,7 +387,7 @@ footer ul {
 }
 
 footer ul li a {
-  font-size: 12px;
+  font-size: 14px;
   color: rgba(255, 255, 255, 0.3);
 }
 
@@ -543,8 +542,10 @@ h2.form-header {
 .disclaimer-text{
   font-size: 14px;
 }
-.btn-checkout{
-  background: linear-gradient(#fdcc52, #fdc539);;
+.btn-checkout {
+    color: white;
+    background: #1d2124;
+    border: 0px solid;
 }
 
 .portfolio-item {
