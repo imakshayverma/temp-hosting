@@ -39,6 +39,9 @@
                         <a class="nav-link js-scroll-trigger" href="#features">Features</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger" href="#gallery">Gallery</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link js-scroll-trigger" href="#contact">Contact</a>
                     </li>
                 </ul>
@@ -74,7 +77,7 @@
             </div>
         </div>
     </header>
-    <section class="download bg-primary text-center" id="download">
+    <section class="download bg-primary text-center" id="features">
         <!--
         <div class="container">
             <div class="row">
@@ -92,7 +95,7 @@
             <div class="row">
                 <div class="col-lg-6 my-auto">
                     <div class="content-section-heading">
-                        <h2 class="text-secondary mb-0 section-2-mainheader">What is SlideSense</h3>
+                        <h2 class=" section-2-mainheader">What is SlideSense</h3>
                             <h3 class="mb-5 section-2-subtext">SlideSense is an <span class="highlight-black">PowerPoint plugin</span> that enables you to build, <span class="highlight-black">data-driven</span> interactive <span class="highlight-black">animated visualizations.</span>
                         </h2>
                     </div>
@@ -122,7 +125,7 @@
                                 <i class="icon-like"></i>
                             </span>
                             <h4 class="feature-header">
-                                Usecase based Templates
+                                Ready Templates
                             </h4>
                             <p class="text-faded feature-subtext">Pick template based on appropriate buisness use-case.</p>
                         </div>
@@ -140,11 +143,72 @@
             </div>
         </div>
     </section>
-    <section class="features" id="features">
+    <section class="gallery" id="gallery">
+      <div class="container">
+            <div class="content-section-heading text-center">
+              <h2 class="ft-900 gallery-header">Explore the Visualizations</h2>
+              <p class=" ft-300 gallery-subtext">SlideSense offers a unique set of visualization which intent to delight the audience.</p>
+            </div>
+            <div class="row no-gutters">
+              <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                  <span class="caption">
+                    <span class="caption-content">
+                      <h2 class="chart-header">Racing Bar Charts</h2>
+                      <p class="mb-0 chart-description">Racing Bar Charts are the new things. Explore trends, changes to see who tops it up.</p>
+                    </span>
+                  </span>
+                  <img class="img-fluid" src="img/race.gif" alt="">
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                  <span class="caption">
+                    <span class="caption-content">
+                      <h2 class="chart-header">Racing Bar Charts</h2>
+                      <p class="mb-0 chart-description">Racing Bar Charts are the new things. Explore trends, changes to see who tops it up.</p>
+                    </span>
+                  </span>
+                  <img class="img-fluid" src="img/race.gif" alt="">
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                  <span class="caption">
+                    <span class="caption-content">
+                      <h2 class="chart-header">Racing Bar Charts</h2>
+                      <p class="mb-0 chart-description">Racing Bar Charts are the new things. Explore trends, changes to see who tops it up.</p>
+                    </span>
+                  </span>
+                  <img class="img-fluid" src="img/race.gif" alt="">
+                </a>
+              </div>
+              <div class="col-lg-6">
+                <a class="portfolio-item" href="#">
+                  <span class="caption">
+                    <span class="caption-content">
+                      <h2 class="chart-header">Racing Bar Charts</h2>
+                      <p class="mb-0 chart-description">Racing Bar Charts are the new things. Explore trends, changes to see who tops it up.</p>
+                    </span>
+                  </span>
+                  <img class="img-fluid" src="img/race.gif" alt="">
+                </a>
+              </div>
+            </div>
+          </div>
+    </section>
+    <section class="features"  id="download">
         <div class="container">
+
+          <div class="row">
+            <div class="col-lg-8">
+            <h2 class="form-header">Wanna Try Out SlideSense?</h2>
+            <p class="form-subtext ft-300">We have an alpha version ready.
+            If you'd like to try it and share your feedback, please fill in the form below to download SlideSense.</p>
+            </div>
+          </div>
             <div class="row">
                 <div class="col-md-8 order-md-1">
-                    <h4 class="mb-3">Billing address</h4>
                     <form class="needs-validation" novalidate="">
                         <div class="row">
                             <div class="col-md-6 mb-3">
@@ -163,18 +227,6 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="username">Username</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text">@</span>
-                                </div>
-                                <input type="text" class="form-control" id="username" placeholder="Username" required="">
-                                <div class="invalid-feedback" style="width: 100%;">
-                                    Your username is required.
-                                </div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
                             <label for="email">Email <span class="text-muted">(Optional)</span></label>
                             <input type="email" class="form-control" id="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
@@ -182,112 +234,61 @@
                             </div>
                         </div>
                         <div class="mb-3">
-                            <label for="address">Address</label>
-                            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required="">
+                            <label for="company">Company Name</label>
+                            <input type="text" class="form-control" id="company" placeholder="Gramener" required="">
                             <div class="invalid-feedback">
-                                Please enter your shipping address.
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="address2">Address 2 <span class="text-muted">(Optional)</span></label>
-                            <input type="text" class="form-control" id="address2" placeholder="Apartment or suite">
-                        </div>
-                        <div class="row">
-                            <div class="col-md-5 mb-3">
-                                <label for="country">Country</label>
-                                <select class="custom-select d-block w-100" id="country" required="">
-                                    <option value="">Choose...</option>
-                                    <option>United States</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please select a valid country.
-                                </div>
-                            </div>
-                            <div class="col-md-4 mb-3">
-                                <label for="state">State</label>
-                                <select class="custom-select d-block w-100" id="state" required="">
-                                    <option value="">Choose...</option>
-                                    <option>California</option>
-                                </select>
-                                <div class="invalid-feedback">
-                                    Please provide a valid state.
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="zip">Zip</label>
-                                <input type="text" class="form-control" id="zip" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Zip code required.
-                                </div>
+                                Please enter your company.
                             </div>
                         </div>
                         <hr class="mb-4">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="same-address">
-                            <label class="custom-control-label" for="same-address">Shipping address is the same as my billing address</label>
+                        <label for="form-1">How often do you create presentations?</label>
+                        <div class="d-block my-3 mb-4">
+                            <div class="custom-control custom-radio">
+                                <input id="daily" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                                <label class="custom-control-label" for="credit">Everyday</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="once-week" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="once-week">Once a week</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="once-month" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="once-month">Once a month</label>
+                            </div>
+                            <div class="custom-control custom-radio">
+                                <input id="rarely" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="rarely">Rarely</label>
+                            </div>
                         </div>
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="save-info">
-                            <label class="custom-control-label" for="save-info">Save this information for next time</label>
-                        </div>
-                        <hr class="mb-4">
-                        <h4 class="mb-3">Payment</h4>
+
+                        <label for="form-2">How many of your presentations show data?</label>
                         <div class="d-block my-3">
                             <div class="custom-control custom-radio">
-                                <input id="credit" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
-                                <label class="custom-control-label" for="credit">Credit card</label>
+                                <input id="daily" name="paymentMethod" type="radio" class="custom-control-input" checked="" required="">
+                                <label class="custom-control-label" for="credit">More than half</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="debit" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                                <label class="custom-control-label" for="debit">Debit card</label>
+                                <input id="once-week" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="once-week">Less than half</label>
                             </div>
                             <div class="custom-control custom-radio">
-                                <input id="paypal" name="paymentMethod" type="radio" class="custom-control-input" required="">
-                                <label class="custom-control-label" for="paypal">Paypal</label>
+                                <input id="once-month" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="once-month">Less than a quarter</label>
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-name">Name on card</label>
-                                <input type="text" class="form-control" id="cc-name" placeholder="" required="">
-                                <small class="text-muted">Full name as displayed on card</small>
-                                <div class="invalid-feedback">
-                                    Name on card is required
-                                </div>
-                            </div>
-                            <div class="col-md-6 mb-3">
-                                <label for="cc-number">Credit card number</label>
-                                <input type="text" class="form-control" id="cc-number" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Credit card number is required
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">Expiration</label>
-                                <input type="text" class="form-control" id="cc-expiration" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Expiration date required
-                                </div>
-                            </div>
-                            <div class="col-md-3 mb-3">
-                                <label for="cc-expiration">CVV</label>
-                                <input type="text" class="form-control" id="cc-cvv" placeholder="" required="">
-                                <div class="invalid-feedback">
-                                    Security code required
-                                </div>
+                            <div class="custom-control custom-radio">
+                                <input id="rarely" name="paymentMethod" type="radio" class="custom-control-input" required="">
+                                <label class="custom-control-label" for="rarely">Almost none</label>
                             </div>
                         </div>
                         <hr class="mb-4">
-                        <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
+                        <button class="btn btn-dark btn-checkout btn-lg btn-block" type="submit">Continue to checkout</button>
                     </form>
                 </div>
                 <div class="col-md-4 order-md-2 mb-4">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                       Disclaimer
                     </h4>
-                    <p class="ft-300">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
+                    <p class="ft-300 disclaimer-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</p>
                 </div>
             </div>
             <!--
