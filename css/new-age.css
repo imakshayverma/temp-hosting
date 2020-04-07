@@ -603,6 +603,7 @@ h2.form-header {
     -webkit-transition: -webkit-clip-path 0.25s ease-out;
     -webkit-clip-path: inset(-1px);
     clip-path: inset(-1px);
+        border: 2px solid #ddd;
   }
   .portfolio-item:hover img {
     -webkit-clip-path: inset(2rem);
