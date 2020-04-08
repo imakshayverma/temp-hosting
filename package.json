@@ -1,11 +1,11 @@
 {
-    "title": "New Age",
-    "name": "startbootstrap-new-age",
+    "title": "SlideSense",
+    "name": "Gramener",
     "version": "5.0.7",
     "scripts": {
         "start": "node_modules/.bin/gulp watch"
     },
-    "description": "A one page app landing page HTML theme for Bootstrap.",
+    "description": "Official Website of SlideSense",
     "keywords": [
         "css",
         "sass",
@@ -14,19 +14,15 @@
         "theme",
         "template"
     ],
-    "homepage": "https://startbootstrap.com/template-overviews/new-age",
-    "bugs": {
-        "url": "https://github.com/BlackrockDigital/startbootstrap-new-age/issues",
-        "email": "feedback@startbootstrap.com"
-    },
+    "homepage": "slidesense.ai",
     "license": "MIT",
-    "author": "Start Bootstrap",
+    "author": "Gramener",
     "contributors": [
-        "David Miller (http://davidmiller.io/)"
+        "Akshay Verma (http://imakshayverma.github.io/)"
     ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/BlackrockDigital/startbootstrap-new-age.git"
+        "url": ""
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "5.10.2",
